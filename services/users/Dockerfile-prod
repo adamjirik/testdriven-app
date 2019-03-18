@@ -15,7 +15,7 @@ COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
 # add entrypoint.sh
-COPY ./entrypoint.sh /usr/src/app/entrypoint-prod.sh
+COPY ./entrypoint-prod.sh /usr/src/app/entrypoint-prod.sh
 RUN chmod +x /usr/src/app/entrypoint-prod.sh
 
 # add app
