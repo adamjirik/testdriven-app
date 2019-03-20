@@ -3,7 +3,6 @@ version: '3.7'
 services:
 
   users:
-    container_name: users
     build:
       context: ./services/users
       dockerfile: Dockerfile-dev
@@ -24,10 +23,25 @@ services:
       context: ./services/users/project/db
       dockerfile: Dockerfile
     ports:
-    - 5435:5432
+      - 5436:5432
     environment:
-    - POSTGRES_USER=postgres
-    - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  client:
+    build:
+      context: ./services/client
+      dockerfile: Dockerfile-dev
+    volumes:
+      - './services/client:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - 3007:3000
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_USERS_SERVICE_URL=${REACT_APP_USERS_SERVICE_URL}
+    depends_on:
+      - users
 
   nginx:
     build:
@@ -39,19 +53,3 @@ services:
     depends_on:
       - users
       - client
-
-  client:
-    container_name: client
-    build:
-      context: ./services/client
-      dockerfile: Dockerfile-dev
-    volumes:
-      - './services/client:/usr/src/app'
-      - '/usr/src/app/node_modules/'
-    ports:
-      - 3007:3000
-    environment:
-      - NODE_ENV=development
-      - REACT_APP_USERS_SERVICE_URL=${REACT_APP_USERS_SERVICE_URL}
-    depends_on:
-      - users
