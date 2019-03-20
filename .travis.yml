@@ -19,6 +19,7 @@ before_script:
   - docker-compose -f docker-compose-dev.yml up --build -d client
   - docker-compose -f docker-compose-dev.yml up --build -d nginx
   - echo -----------------------before script done-----------------------
+  - docker ps -a
 
 script:
   - docker-compose -f docker-compose-dev.yml exec users python manage.py test
