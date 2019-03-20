@@ -14,12 +14,7 @@ before_install:
 
 before_script:
   - export REACT_APP_USERS_SERVICE_URL=http://127.0.0.1
-  - docker-compose -f docker-compose-dev.yml up --build -d users-db
-  - docker-compose -f docker-compose-dev.yml up --build -d users
-  - docker-compose -f docker-compose-dev.yml up --build -d client
-  - docker-compose -f docker-compose-dev.yml up --build -d nginx
-  - echo -----------------------before script done-----------------------
-  - docker ps -a
+  - docker-compose -f docker-compose-dev.yml up --build
 
 script:
   - docker-compose -f docker-compose-dev.yml exec users python manage.py test
