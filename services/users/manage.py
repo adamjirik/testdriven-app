@@ -1,19 +1,21 @@
-# services/users/manage.py
+#!/usr/bin/env python3
+
 
 import unittest
 
 import coverage
 from flask.cli import FlaskGroup
 
-from project import db, create_app
+from project import create_app, db
 from project.api.models import User
+
 
 COV = coverage.coverage(
     branch=True,
     include='project/*',
     omit=[
         'project/tests/*',
-        'project/config.py'
+        'project/config.py',
     ]
 )
 COV.start()
@@ -28,6 +30,7 @@ def recreate_db():
     db.create_all()
     db.session.commit()
 
+
 @cli.command()
 def test():
     """Runs the tests without code coverage"""
@@ -37,27 +40,30 @@ def test():
         return 0
     return 1
 
+
 @cli.command('seed_db')
 def seed_db():
-    """Seeds the database"""
-    db.session.add(User(username="adam", email="adam@dev.com"))
-    db.session.add(User(username="adamj", email="adamj@dev.com"))
+    """Seeds the database."""
+    db.session.add(User(username='michael', email="hermanmu@gmail.com"))
+    db.session.add(User(username='michaelherman', email="michael@mherman.org"))
     db.session.commit()
+
 
 @cli.command()
 def cov():
-    """Runs the unit tests with coverage"""
+    """Runs the unit tests with coverage."""
     tests = unittest.TestLoader().discover('project/tests')
     result = unittest.TextTestRunner(verbosity=2).run(tests)
     if result.wasSuccessful():
         COV.stop()
         COV.save()
-        print('Coverage summary:')
+        print('Coverage Summary:')
         COV.report()
         COV.html_report()
         COV.erase()
         return 0
     return 1
+
 
 if __name__ == '__main__':
     cli()
