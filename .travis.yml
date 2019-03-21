@@ -17,7 +17,6 @@ before_script:
   - docker-compose -f docker-compose-dev.yml up -d --build
 
 script:
-- docker-compose -f docker-compose-dev.yml exec users python manage.py seed_db
 - docker-compose -f docker-compose-dev.yml exec users python manage.py test
 
 after_script:
