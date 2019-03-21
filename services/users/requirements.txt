@@ -8,3 +8,4 @@ Flask-Testing==0.7.1
 gunicorn==19.9.0
 psycopg2-binary==2.7.6.1
 flask-migrate==2.3.1
+flask-bcrypt==0.7.1
