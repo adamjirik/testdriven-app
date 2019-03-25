@@ -8,7 +8,7 @@ const NavBar = (props) => (
             <div className="navbar-brand">
                 <strong className="navbar-item">{props.title}</strong>
                 <span className="nav-toggle navbar-burger"
-                    onClick={() =>{
+                    onClick={() => {
                         let toggle = document.querySelector(".nav-toggle");
                         let menu = document.querySelector(".navbar-menu");
                         toggle.classList.toggle("is-active"); menu.classList.toggle("is-active");
@@ -22,12 +22,20 @@ const NavBar = (props) => (
                 <div className="navbar-start">
                     <Link to="/" className="navbar-item">Home</Link>
                     <Link to="/about" className="navbar-item">About</Link>
-                    <Link to="/status" className="navbar-item">User status</Link>
+                    {props.isAuthenticated &&
+                        <Link to="/status" className="navbar-item">User status</Link>
+                    }
                 </div>
                 <div className="navbar-end">
+                {!props.isAuthenticated &&
                     <Link to="/register" className="navbar-item">Register</Link>
+                }
+                {!props.isAuthenticated &&
                     <Link to="/login" className="navbar-item">Login</Link>
+                }
+                {props.isAuthenticated &&
                     <Link to="/logout" className="navbar-item">Logout</Link>
+                }
                 </div>
             </div>
         </section>
