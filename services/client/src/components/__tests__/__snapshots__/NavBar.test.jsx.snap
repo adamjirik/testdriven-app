@@ -62,7 +62,7 @@ exports[`About snapshot renders correctly 1`] = `
           href="/login"
           onClick={[Function]}
         >
-          Login
+          Log In
         </a>
       </div>
     </div>
