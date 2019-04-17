@@ -36,9 +36,61 @@ describe('Register', () => {
             cy
             .get('.navbar-item').contains('User Status')
             .get('.navbar-item').contains('Log Out')
-            .get('.navbar-item').contains('Log in').should('not.be.visible')
+            .get('.navbar-item').contains('Log In').should('not.be.visible')
             .get('.navbar-item').contains('Register').should('not.be.visible');
         })
+    });
+
+    it('Should throw an error if the username is taken', () => {
+        
+        // register duplicate user
+        cy
+        .visit('/register')
+        .get('input[name="username"]').type(username)
+        .get('input[name="email"]').type(`${email}unique`)
+        .get('input[name="password"]').type(password)
+        .get('input[type=submit]').click();
+
+        // assert user registration failed
+        cy.contains('All Users').should('not.be.visible');
+        cy.contains('Register');
+        cy.get('.navbar-burger').click();
+        cy.get('.navbar-menu').within(() => {
+            cy
+            .get('.navbar-item').contains('User Status').should('not.be.visible')
+            .get('.navbar-item').contains('Log Out').should('not.be.visible')
+            .get('.navbar-item').contains('Log In')
+            .get('.navbar-item').contains('Register');
+        });
+        cy
+        .get('.notification.is-success').should('not.be.visible')
+        .get('.notification.is-danger').contains('That user already exists.')
+    });
+
+    it('Should throw an error if the email is taken', () => {
+        
+        // register duplicate user
+        cy
+        .visit('/register')
+        .get('input[name="username"]').type(`${username}unique`)
+        .get('input[name="email"]').type(email)
+        .get('input[name="password"]').type(password)
+        .get('input[type=submit]').click();
+
+        // assert user registration failed
+        cy.contains('All Users').should('not.be.visible');
+        cy.contains('Register');
+        cy.get('.navbar-burger').click();
+        cy.get('.navbar-menu').within(() => {
+            cy
+            .get('.navbar-item').contains('User Status').should('not.be.visible')
+            .get('.navbar-item').contains('Log Out').should('not.be.visible')
+            .get('.navbar-item').contains('Log In')
+            .get('.navbar-item').contains('Register');
+        });
+        cy
+        .get('.notification.is-success').should('not.be.visible')
+        .get('.notification.is-danger').contains('That user already exists.')
     });
 
     it('Should validate the username field', () => {
