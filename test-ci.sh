@@ -20,11 +20,11 @@ dev() {
 }
 
 e2e() {
-    docker-compose -f docker-compose-dev.yml up -d --build
-    docker-compose -f docker-compose-prod.yml exec users python manage.py recreate_db
+    docker-compose -f docker-compose-$1.yml up -d --build
+    docker-compose -f docker-compose-$1.yml exec users python manage.py recreate_db
     ./node_modules/.bin/cypress run --config baseUrl=http://localhost
     inspect $? e2e
-    docker-compose -f docker-compose-dev.yml down
+    docker-compose -f docker-compose-$1.yml down
 }
 
 if [[ "${env}" == "development" ]]; then
