@@ -28,6 +28,7 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   client:
+    container_name: client
     build:
       context: ./services/client
       dockerfile: Dockerfile-stage
