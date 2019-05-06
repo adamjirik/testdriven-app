@@ -61,7 +61,7 @@
         {
           "name": "POSTGRES_PASSWORD",
           "value": "postgres"
-        },
+        }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
