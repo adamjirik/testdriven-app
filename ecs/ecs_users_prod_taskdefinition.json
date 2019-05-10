@@ -26,7 +26,7 @@
           "value": "postgres://postgres:postgres@users-db:5432/users_test"
         },
         {
-          "name": "SECRET_KEY",
+          "name": "PRODUCTION_SECRET_KEY",
           "value": "%s"
         }
       ],
