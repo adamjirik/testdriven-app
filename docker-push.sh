@@ -7,8 +7,10 @@ then
         export DOCKER_ENV=stage
         export REACT_APP_USERS_SERVICE_URL=http://testdriven-staging-alb-1992034226.eu-central-1.elb.amazonaws.com
     elif [ "$TRAVIS_BRANCH" == "production" ]; then
-        export REACT_APP_USERS_SERVICE_URL=http://testdriven-production-alb-1982921498.eu-central-1.elb.amazonaws.com
         export DOCKER_ENV=prod
+        export REACT_APP_USERS_SERVICE_URL=http://testdriven-production-alb-1982921498.eu-central-1.elb.amazonaws.com
+        export DATABASE_URL="$AWS_RDS_URL"
+        export SECRET_KEY="$PRODUCTION_SECRET_KEY"
     fi
 
     if [ "$TRAVIS_BRANCH" == "staging" ] || \
