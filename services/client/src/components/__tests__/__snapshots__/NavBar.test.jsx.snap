@@ -46,6 +46,12 @@ exports[`About snapshot renders correctly 1`] = `
         >
           About
         </a>
+        <a
+          className="navbar-item"
+          href="/swagger"
+        >
+          Swagger
+        </a>
       </div>
       <div
         className="navbar-end"
